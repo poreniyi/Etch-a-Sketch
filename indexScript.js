@@ -1,39 +1,33 @@
 const container=document.querySelector('#container');
 let cellArray=[];
+let rowArray=[];
 container.style.display='grid';
-container.style['grid-template-columns']='repeat(16, 100px)';
+//document.documentElement.style.setProperty('--size','16');
+container.style['grid-template-columns']='repeat(16, 115px)';
 container.style['grid-template-rows']='repeat(16, 60px)';
 
-for(let i=0;i<16;i++){
-    const cell=document.createElement('div');
-    for(let j=0;j<16;j++){
-        cell.textContent="I'm cell#("+i+'/'+j+')';
-        cellArray[i]=cell;
+for(let i=1;i<17;i++){
+    for(let j=1;j<17;j++){
+        const cell=document.createElement('div');
+       // cell.textContent="I'm cell#("+i+'/'+j+')';
+        cellArray[i-1]=cell;
         container.appendChild(cell);
-        cell.style['grid-column']= i/j;
-        cell.style.color='white';
-        cell.style.backgroundColor='black';
-        //cell.setAttribute(':hover')
-       // cell.style[':hover']=cell.style.backgroundColor='white';
+        //cell.style['grid-column']= i/j;
+       // cell.style['grid-row']=i/i+1;
+       // cell.style['grid-area']=i/j;
+       cell.style.color='white';
+       cell.style.backgroundColor='black';
+        cell.addEventListener('mouseover',()=>{
+            onHover(cell);
+        });
     }
-    // cell.textContent='Im cell #'+i;
-    // cellArray[i]=cell;
-    // container.appendChild(cell);
 }
-for(let i=0;i<cellArray.length;i++){
-    cellArray[i].addEventListener('mouseover',()=>{
-        onHover(cellArray[i]);
-    });
-    cellArray[i].addEventListener('mouseover',()=>{
-        onHover(cellArray[i]);
-    });
-console.log('This is#',i,cellArray[i]);
-}
+
 function onHover(item){
     item.style.color='black';
     item.style.backgroundColor='white';
+    item.style.backgroundColor="rgb(155, 102, 102)"; 
 }
 function onExit(item){
-    
+
 }
-//console.log(cellArray);

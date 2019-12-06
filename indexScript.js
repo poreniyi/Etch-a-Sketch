@@ -16,30 +16,35 @@ function drawGrid(){
             cell.addEventListener('mouseover',()=>{
                 onHover(cell);
             });
+            cell.addEventListener('click',()=>{
+                cell.setAttribute('passes', '0');
+                cell.style.backgroundColor='black';
+            });
         }
     }    
 }
 
 function onHover(item){
     item.style.color='black';
-   // item.style.backgroundColor='white';
    let passes=item.getAttribute('passes')
-   passes=Number(passes);
-   if(passes!=0){
-    console.log(passes);
-    passes++;
-   }else{
+   if(passes==0){
     item.style.backgroundColor=randomColor();
     passes++;
-    console.log('Else loop',passes);
     item.setAttribute('passes', passes);
    }
-    //console.log(item.style.backgroundColor);
+   let color=item.style.backgroundColor;
+   passes=Number(passes);
+   if(passes!=0 && passes<10){ 
+    console.log(passes);
+    item.style.backgroundColor=blackness(color);
+    passes++;
+    item.setAttribute('passes', passes);
+   }else{
+       item.style.backgroundColor='black';
+   }
+    console.log(item.style.backgroundColor);
 }
-function onExit(item){
-
-}
-function randomColor(passes){
+function randomColor(){
      let red=Math.floor(Math.random() * Math.floor(256)).toString();
      let green=Math.floor(Math.random() * Math.floor(256)).toString();
      let blue=Math.floor(Math.random() * Math.floor(256)).toString();
@@ -47,7 +52,7 @@ function randomColor(passes){
     
     let hue=Math.floor(Math.random() * Math.floor(361)).toString();
     let saturation=Math.floor(Math.random() * Math.floor(101)).toString();
-    let light=Math.floor(Math.random() * Math.floor(101));//add blackness here
+    let light=Math.floor(Math.random() * Math.floor(101));
         light=light.toString();
     
     let rgb= 'rgb('+red+', '+green+', '+blue+')';
@@ -56,12 +61,14 @@ function randomColor(passes){
     //console.log(hsl);
     //light=blackness+Number(light);
     light=light.toString();
-    return hsl;
-   // return rgb;
+   // return hsl;
+    return rgb;
 }
 const button=document.querySelector('#button')
 button.addEventListener('click',function(){
-     size=prompt("Size of rows/columns");
+    do{
+     size=prompt("Enter a new Size of rows/columns");
+    }while(isNaN(size));
     let child=container.lastChild;
     while(child){
         container.removeChild(child);
@@ -71,4 +78,12 @@ button.addEventListener('click',function(){
     document.documentElement.style.setProperty('--size',size);
     drawGrid();
 });
-
+ function blackness(color){
+    let reg= /\d+/g;
+    console.log('The Blackness color is:',color);
+   let result=color.match(reg);
+    let red=parseInt(result[0])*.9.toString();
+    let blue=parseInt(result[1])*.9.toString();
+    let green=parseInt(result[2])*.9.toString();
+   return 'rgb('+red+', '+green+', '+blue+')';
+ }

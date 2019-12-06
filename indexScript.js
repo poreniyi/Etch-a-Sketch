@@ -59,7 +59,6 @@ function randomColor(){
     //console.log(rgb);
     let hsl='hsl('+hue+', '+saturation+'%, '+light+'%)';
     //console.log(hsl);
-    //light=blackness+Number(light);
     light=light.toString();
    // return hsl;
     return rgb;
@@ -82,8 +81,8 @@ button.addEventListener('click',function(){
     let reg= /\d+/g;
    let result=color.match(reg);
     let red=parseInt(result[0])*.9.toString();
-    let blue=parseInt(result[1])*.9.toString();
-    let green=parseInt(result[2])*.9.toString();
+    let green=parseInt(result[1])*.9.toString();
+    let blue=parseInt(result[2])*.9.toString();
     color='rgb('+red+', '+green+', '+blue+')';
     console.log('The Blackness color is:',color);
    return color;

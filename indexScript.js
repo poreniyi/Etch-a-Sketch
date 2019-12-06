@@ -80,10 +80,11 @@ button.addEventListener('click',function(){
 });
  function blackness(color){
     let reg= /\d+/g;
-    console.log('The Blackness color is:',color);
    let result=color.match(reg);
     let red=parseInt(result[0])*.9.toString();
     let blue=parseInt(result[1])*.9.toString();
     let green=parseInt(result[2])*.9.toString();
-   return 'rgb('+red+', '+green+', '+blue+')';
+    color='rgb('+red+', '+green+', '+blue+')';
+    console.log('The Blackness color is:',color);
+   return color;
  }

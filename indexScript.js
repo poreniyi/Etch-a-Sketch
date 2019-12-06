@@ -1,26 +1,23 @@
 const container=document.querySelector('#container');
-let cellArray=[[]];
-let rowArray=[];
-container.style.display='grid';
-//document.documentElement.style.setProperty('--size','16'); //this doesn't work either
-container.style['grid-template-columns']='repeat(16, 1fr)';
-container.style['grid-template-rows']='repeat(16, 60px)';
+ document.documentElement.style.setProperty('--size','16');
+let size=document.documentElement.style.getPropertyValue('--size');
+size=parseInt(size);
 
+drawGrid();
 
-for(let i=0;i<16;i++){
-    for(let j=0;j<16;j++){
-        const cell=document.createElement('div');
-       // cell.textContent="I'm cell#("+i+'/'+j+')';
-        //cellArray[i].push(cell);// this doesn't work I get an error starting at i=1
-        cellArray[i]=cell;
-        container.appendChild(cell);
-        cell.setAttribute('passes',0);
-       cell.style.color='white';
-       cell.style.backgroundColor='black';
-        cell.addEventListener('mouseover',()=>{
-            onHover(cell);
-        });
-    }
+function drawGrid(){
+    for(let i=0;i<size;i++){
+        for(let j=0;j<size;j++){
+            const cell=document.createElement('div');
+            container.appendChild(cell);
+            cell.setAttribute('passes',0);
+           cell.style.color='white';
+           cell.style.backgroundColor='black';
+            cell.addEventListener('mouseover',()=>{
+                onHover(cell);
+            });
+        }
+    }    
 }
 
 function onHover(item){
@@ -37,7 +34,6 @@ function onHover(item){
     console.log('Else loop',passes);
     item.setAttribute('passes', passes);
    }
-    //
     //console.log(item.style.backgroundColor);
 }
 function onExit(item){
@@ -63,9 +59,16 @@ function randomColor(passes){
     return hsl;
    // return rgb;
 }
-
-console.log(cellArray);
-cellArray.forEach(element => {
-    let pass=element.getAttribute('passes');
-    console.log(typeof pass);
+const button=document.querySelector('#button')
+button.addEventListener('click',function(){
+     size=prompt("Size of rows/columns");
+    let child=container.lastChild;
+    while(child){
+        container.removeChild(child);
+        child=container.lastChild;
+    } 
+    size=Number(size);
+    document.documentElement.style.setProperty('--size',size);
+    drawGrid();
 });
+

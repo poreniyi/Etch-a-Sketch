@@ -1,5 +1,13 @@
+body{
+    padding:0;
+    margin:0;
+}
+button{
+    height:30px;
+}
 #container{
-     display: grid;
-    grid-template-columns:  repeat(--size, 115px);
-    grid-template-rows: repeat(--size,60px); 
+    height: calc(100vh - 30px); 
+    display: grid;
+    grid-template-columns:  repeat(var(--size, 2px), 1fr);
+    grid-template-rows: repeat(var(--size, 2px), 1fr); 
 }
